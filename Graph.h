@@ -26,7 +26,7 @@ struct vertex{
 };
 
 struct car{
-    string model; //car model name
+    std::string model; //car model name
     int batRange; //battery range in miles of the car
 };
 
@@ -39,7 +39,6 @@ class Graph
         void addVertex(std::string name);
         void setCharge(std::string name, bool charge);
         void displayEdges();
-        void findDistricts();
         void findShortestPath(std::string v1, std::string v2); //not sure we need this method
         int findShortestDistance(std::string v1, std::string v2); //might want this to return the path, not the distance?
         bool compareDistances(int pathDist);
