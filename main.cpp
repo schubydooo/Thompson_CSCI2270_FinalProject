@@ -99,6 +99,14 @@ int main(int argc, char* argv[])
             /*ask for car maker --> get model choices --> ask for model --> get battery range
               ask for starting and ending cities
               call method*/
+            string startCity;
+            string endCity;
+            cout<<"Starting City:";
+            cin.ignore(1,'\n');
+            getline(cin,startCity);
+            cout<<"Ending City:";
+            cin.ignore(1,'\n');
+            getline(cin,endCity);
         }else if(userInput==2){
             //print city choices
             for(int i=0;i<cityNames.size();i++){
