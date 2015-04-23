@@ -7,7 +7,7 @@
 
 using namespace std;
 
-
+//main method
 int main(int argc, char* argv[])
 {
     //get file stuff
