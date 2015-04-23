@@ -11,9 +11,8 @@ using namespace std;
 int main(int argc, char* argv[])
 {
     //get file stuff
-    ifstream inFile;
-    string filename = argv[1];
-    inFile.open(filename);
+    ifstream graphFile;
+    graphFile.open("FinalProjectCities.txt");
     string fileline;
     Graph cg;
     bool firstLine = false;
@@ -22,7 +21,7 @@ int main(int argc, char* argv[])
 
     //reading the file
     //BUILDING THE GRAPH
-    while(getline(inFile,fileline)){
+    while(getline(graphFile,fileline)){
         if(fileline == ""){
             break;
         }
@@ -61,6 +60,30 @@ int main(int argc, char* argv[])
         }
 
     }
+    graphFile.close();
+
+    //SETTING THE CHARGE
+    //importing a separate file that just has names and 1 or 0
+    //1 if the city has a charging station, 0 if not
+    ifstream chargeFile;
+    chargeFile.open("SuperChargerCities.txt");
+    while(getline(chargeFile,fileline)){
+        string name;
+        string sCharge;
+        int charge;
+        stringstream inLine(fileline);
+        getline(inLine,name,',');
+        getline(inLine,sCharge,',');
+        charge = stoi(sCharge);
+
+        if(charge == 1){
+            cg.setCharge(name,true);
+        }else{
+            cg.setCharge(name,false);
+        }
+    }
+    chargeFile.close();
+
 
     int userInput;
     while(userInput != 6){
@@ -74,6 +97,7 @@ int main(int argc, char* argv[])
               call method*/
         }else if(userInput==2){
             //print city choices
+            cg.displayEdges();
         }else if(userInput==3){
             //quit
         }else{
