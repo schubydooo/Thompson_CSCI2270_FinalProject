@@ -38,6 +38,7 @@ class Graph
         void addEdge(std::string v1, std::string v2, int weight);
         void addVertex(std::string name);
         void setCharge(std::string name, bool charge);
+        void setBatteryRange(int range);
         void displayEdges();
         void findShortestPath(std::string v1, std::string v2); //not sure we need this method
         int findShortestDistance(std::string v1, std::string v2); //might want this to return the path, not the distance?
@@ -47,6 +48,8 @@ class Graph
     private:
         std::vector<vertex> vertices;
         int batteryRange;
+        std::vector<vertex> path; //to keep track of shortest distance path without having to print it out
+                                    //in case the car cannot make it - need something to check for charging stations
 
 };
 

@@ -65,6 +65,10 @@ void Graph::setCharge(string name, bool charge){
     }
 }
 
+void Graph::setBatteryRange(int range){
+    batteryRange = range;
+}
+
 void Graph::displayEdges(){
     //loop through all vertices and adjacent vertices
     for(int i = 0; i < vertices.size(); i++){
@@ -160,7 +164,6 @@ int Graph::findShortestDistance(string v1, string v2){
             i2 = i;
         }
     }
-    //checking all of the cases
 
     if(i1 == -1 || i2 == -1){
         cout<<"One or more cities doesn't exist"<<endl;
@@ -172,43 +175,35 @@ int Graph::findShortestDistance(string v1, string v2){
     vertex* destPtr;
     int minDistance = INT_MAX;
 
-    for(int i = 0; i < vertices.size(); i++)
-    {
+    for(int i = 0; i < vertices.size(); i++){
         vertices[i].visited = false;
         vertices[i].previous = NULL;
         vertices[i].distance = INT_MAX;
 
-        if(vertices[i].name == v1)
-        {
+        if(vertices[i].name == v1){
             vertices[i].visited = true;
             vertices[i].distance = 0;
             solved.push_back(&vertices[i]);
         }
 
-        if(vertices[i].name == v2)
-        {
+        if(vertices[i].name == v2){
             destPtr = &vertices[i];
         }
     }
     vertex* minV;
     vertex* holdU;
-    while(destPtr->visited == false)
-    {
+    while(destPtr->visited == false){
         minDistance = INT_MAX;
-        for(int i = 0; i < solved.size(); i++)
-        {
+        for(int i = 0; i < solved.size(); i++){
             vertex* ptrU = solved[i];
-            for(int j = 0; j < ptrU->adj.size(); j++)
-            {
+            for(int j = 0; j < ptrU->adj.size(); j++){
                 vertex* ptrV = ptrU->adj[j].v;
-                if(ptrV->visited == false)
-                {
+                if(ptrV->visited == false){
                     //Calculate distance using u.distance and edge weight
                     ptrV->distance = ptrU->distance + ptrU->adj[j].weight;
 
                     //Find min dist and store vertex information
-                    if(minDistance > ptrV->distance)
-                    {
+                    if(minDistance > ptrV->distance){
                         minDistance = ptrV->distance;
                         minV = ptrV;
                         holdU = ptrU;
@@ -228,15 +223,13 @@ int Graph::findShortestDistance(string v1, string v2){
     }
 
     finalPath.push_back(minV);
-    while(minV->previous != NULL)
-    {
+    while(minV->previous != NULL){
         minV = minV->previous;
         finalPath.push_back(minV);
     }
 
     cout<<minDistance;
-    for(int i = finalPath.size()-1; i > 0; i--)
-    {
+    for(int i = finalPath.size()-1; i > 0; i--){
         cout<<","<<finalPath.at(i)->name;
     }
     cout<<","<<finalPath.at(0)->name;

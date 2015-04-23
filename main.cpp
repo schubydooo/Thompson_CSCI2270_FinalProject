@@ -60,7 +60,6 @@ int main(int argc, char* argv[])
         }
 
     }
-    //graphFile.close();
 
     //SETTING THE CHARGE
     //importing a separate file that just has names and 1 or 0
@@ -82,10 +81,14 @@ int main(int argc, char* argv[])
             cg.setCharge(name1,false);
         }
     }
-    //chargeFile.close();
 
     /*need arrays for each car maker's model choices - print these out depending on the user's choice
-      they will be arrays of car structs, with the model name and battery range*/
+      they will be arrays of car structs, with the model name and battery range
+
+      if the car info is in text files, need to take that info in and put it in different vectors
+      one vector for each car maker
+      vector of car structs (defined in Graph.h), with model name and battery range
+    */
 
     int userInput;
     while(userInput != 4){
