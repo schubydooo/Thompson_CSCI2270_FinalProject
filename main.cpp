@@ -84,6 +84,8 @@ int main(int argc, char* argv[])
     }
     chargeFile.close();
 
+    /*need arrays for each car maker's model choices - print these out depending on the user's choice
+      they will be arrays of car structs, with the model name and battery range*/
 
     int userInput;
     while(userInput != 6){
@@ -92,6 +94,7 @@ int main(int argc, char* argv[])
 
         if(userInput==1){
             //plan a trip
+            cout<<"Who is the maker of your car? (enter just the number of your choice)"<<endl;
             /*ask for car maker --> get model choices --> ask for model --> get battery range
               ask for starting and ending cities
               call method*/
