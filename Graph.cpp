@@ -69,7 +69,7 @@ void Graph::setCharge(string name, bool charge){
 void Graph::displayEdges(){
     //loop through all vertices and adjacent vertices
     for(int i = 0; i < vertices.size(); i++){
-        cout<<vertices[i].distID<<":"<<vertices[i].name<<"-->";
+        //cout<<vertices[i].distID<<":"<<vertices[i].name<<"-->";
         for(int j = 0; j < vertices[i].adj.size(); j++){
             cout<<vertices[i].adj[j].v->name;
             if(j != vertices[i].adj.size()-1){
@@ -77,39 +77,6 @@ void Graph::displayEdges(){
             }
         }
         cout<<endl;
-    }
-}
-
-void Graph::findDistricts(){
-    int district = 1;
-    int dist;
-    for(int i=0;i<vertices.size();i++){
-        if(vertices[i].distID == -1){
-            bool found = false;
-            for(int k=0;k<vertices[i].adj.size();k++){
-                if(vertices[i].adj[k].v->distID != -1){
-                    dist = vertices[i].adj[k].v->distID;
-                    found = true;
-                    break;
-                }
-            }
-            if(found){
-                vertices[i].distID = dist;
-                for(int j=0;j<vertices[i].adj.size();j++){
-                    vertices[i].adj[j].v->distID = dist;
-                }
-            }else{
-                vertices[i].distID = district;
-                for(int j=0;j<vertices[i].adj.size();j++){
-                    vertices[i].adj[j].v->distID = district;
-                }
-                district++;
-            }
-        }else{
-            for(int j=0;j<vertices[i].adj.size();j++){
-                vertices[i].adj[j].v->distID = vertices[i].distID;
-            }
-        }
     }
 }
 
@@ -132,16 +99,9 @@ void Graph::findShortestPath(string v1, string v2){
             i2 = i;
         }
     }
-    if(vertices[0].distID == -1){
-        cout<<"Please identify the districts before checking distances"<<endl;
-        return;
-    }
+
     if(i1 == -1 || i2 == -1){
         cout<<"One or more cities doesn't exist"<<endl;
-        return;
-    }
-    if(vertices[i1].distID != vertices[i2].distID){
-        cout<<"No safe path between cities"<<endl;
         return;
     }
 
@@ -202,17 +162,10 @@ int Graph::findShortestDistance(string v1, string v2){
         }
     }
     //checking all of the cases
-    if(vertices[0].distID == -1){
-        cout<<"Please identify the districts before checking distances"<<endl;
-        return;
-    }
+
     if(i1 == -1 || i2 == -1){
         cout<<"One or more cities doesn't exist"<<endl;
-        return;
-    }
-    if(vertices[i1].distID != vertices[i2].distID){
-        cout<<"No safe path between cities"<<endl;
-        return;
+        return 0;
     }
 
     vector<vertex*> solved;
