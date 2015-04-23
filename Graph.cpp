@@ -57,6 +57,15 @@ void Graph::addVertex(string n){
     }
 }
 
+void Graph::setCharge(string name, bool charge){
+    for(int i=0;i<vertices.size();i++){
+        if(vertices[i].name == name){
+            vertices[i].chargeStation = charge;
+            break;
+        }
+    }
+}
+
 void Graph::displayEdges(){
     //loop through all vertices and adjacent vertices
     for(int i = 0; i < vertices.size(); i++){
