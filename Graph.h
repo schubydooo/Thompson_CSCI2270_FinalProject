@@ -25,6 +25,11 @@ struct vertex{
     bool chargeStation; //whether the city has a charging station or not
 };
 
+struct car{
+    string model; //car model name
+    int batRange; //battery range in miles of the car
+};
+
 class Graph
 {
     public:
