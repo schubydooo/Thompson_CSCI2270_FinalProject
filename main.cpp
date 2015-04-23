@@ -88,8 +88,9 @@ int main(int argc, char* argv[])
       they will be arrays of car structs, with the model name and battery range*/
 
     int userInput;
-    while(userInput != 3){
-        cout<<"======Main Menu====="<<endl<<"1. Plan a trip"<<endl<<"2. Print city choices"<<endl<<"3. Quit"<<endl;
+    while(userInput != 4){
+        cout<<"======Main Menu====="<<endl<<"1. Plan a trip"<<endl<<"2. Print city choices"<<endl<<"3. Print graph"
+        <<endl<<"4. Quit"<<endl;
         cin>>userInput;
 
         if(userInput==1){
@@ -100,9 +101,14 @@ int main(int argc, char* argv[])
               call method*/
         }else if(userInput==2){
             //print city choices
-            cg.displayEdges();
+            for(int i=0;i<cityNames.size();i++){
+                cout<<cityNames[i]<<endl;
+            }
         }else if(userInput==3){
-            //quit
+            //print graph
+            cg.displayEdges();
+        }else if(userInput == 4){
+
         }else{
             //unless they do not type 1-6
             cout<<"Enter a number between 1 and 6 only."<<endl;
