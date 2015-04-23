@@ -32,6 +32,9 @@ class Graph
         ~Graph();
         void addEdge(std::string v1, std::string v2, int weight);
         void addVertex(std::string name);
+        void setCharge(std::string name, bool charge);
+        void displayEdges();
+        void findDistricts();
         void findShortestPath(std::string v1, std::string v2); //not sure we need this method
         int findShortestDistance(std::string v1, std::string v2); //might want this to return the path, not the distance?
         bool compareDistances(int pathDist);
