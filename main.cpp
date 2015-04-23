@@ -60,7 +60,7 @@ int main(int argc, char* argv[])
         }
 
     }
-    graphFile.close();
+    //graphFile.close();
 
     //SETTING THE CHARGE
     //importing a separate file that just has names and 1 or 0
@@ -68,27 +68,27 @@ int main(int argc, char* argv[])
     ifstream chargeFile;
     chargeFile.open("SuperChargerCities.txt");
     while(getline(chargeFile,fileline)){
-        string name;
+        string name1;
         string sCharge;
         int charge;
         stringstream inLine(fileline);
-        getline(inLine,name,',');
+        getline(inLine,name1,',');
         getline(inLine,sCharge,',');
         charge = stoi(sCharge);
 
         if(charge == 1){
-            cg.setCharge(name,true);
+            cg.setCharge(name1,true);
         }else{
-            cg.setCharge(name,false);
+            cg.setCharge(name1,false);
         }
     }
-    chargeFile.close();
+    //chargeFile.close();
 
     /*need arrays for each car maker's model choices - print these out depending on the user's choice
       they will be arrays of car structs, with the model name and battery range*/
 
     int userInput;
-    while(userInput != 6){
+    while(userInput != 3){
         cout<<"======Main Menu====="<<endl<<"1. Plan a trip"<<endl<<"2. Print city choices"<<endl<<"3. Quit"<<endl;
         cin>>userInput;
 

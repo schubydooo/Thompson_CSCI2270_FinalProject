@@ -46,7 +46,6 @@ void Graph::addVertex(string n){
     for(int i = 0; i < vertices.size(); i++){
         if(vertices[i].name == n){
             found = true;
-            cout<<vertices[i].name<<" found."<<endl;
         }
     }
     if(found == false){
@@ -69,7 +68,7 @@ void Graph::setCharge(string name, bool charge){
 void Graph::displayEdges(){
     //loop through all vertices and adjacent vertices
     for(int i = 0; i < vertices.size(); i++){
-        //cout<<vertices[i].distID<<":"<<vertices[i].name<<"-->";
+        cout<<vertices[i].name<<"-->";
         for(int j = 0; j < vertices[i].adj.size(); j++){
             cout<<vertices[i].adj[j].v->name;
             if(j != vertices[i].adj.size()-1){
