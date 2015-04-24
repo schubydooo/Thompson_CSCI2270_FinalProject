@@ -136,9 +136,10 @@ void Graph::findShortestPath(string v1, string v2){
                     temp.distance = distance;
                     if(temp.path.back()->name == v2){
                         //print everything
-                        cout<<distance;
-                        for(int j = 0;j<temp.path.size();j++){
-                            cout<<","<<temp.path[j]->name;
+                        cout << "The path with the least number of cities on it will take you through these " <<distance<< " cities: "
+                        << temp.path[0]->name;
+                        for(int j = 1;j<temp.path.size();j++){
+                            cout<<", "<<temp.path[j]->name;
                         }
                         cout<<endl;
                         return;
@@ -228,11 +229,11 @@ int Graph::findShortestDistance(string v1, string v2){
         finalPath.push_back(minV);
     }
 
-    cout<<minDistance;
+    cout << "Also, the shortest path will take " <<minDistance<< " miles, and pass through: ";
     for(int i = finalPath.size()-1; i > 0; i--){
-        cout<<","<<finalPath.at(i)->name;
+        cout<<finalPath.at(i)->name << ", ";
     }
-    cout<<","<<finalPath.at(0)->name;
+    cout<<finalPath.at(0)->name;
     cout << endl;
 
     return minDistance;
