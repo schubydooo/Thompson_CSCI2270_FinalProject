@@ -18,6 +18,7 @@ int main(int argc, char* argv[])
     bool firstLine = false;
     bool firstCol = true;
     vector<string> cityNames;
+    vector<car*> cars;
 
     //reading the file
     //BUILDING THE GRAPH
@@ -82,13 +83,24 @@ int main(int argc, char* argv[])
         }
     }
 
-    /*need arrays for each car maker's model choices - print these out depending on the user's choice
-      they will be arrays of car structs, with the model name and battery range
-
-      if the car info is in text files, need to take that info in and put it in different vectors
-      one vector for each car maker
-      vector of car structs (defined in Graph.h), with model name and battery range
-    */
+    //TAKING IN CAR INFO
+    //makes a vector of car pointers, with the cars' names and battery ranges
+    ifstream carFile;
+    carFile.open("ElectricVehicleRanges.txt");
+    while(getline(carFile,fileline)){
+        if(fileline == ""){
+            break;
+        }
+        string name2; //name of car
+        string sRange; //mile range of car in string
+        int range; //mile range of car in int
+        stringstream inLine(fileline);
+        getline(inLine,name2,',');
+        getline(inLine,sRange,',');
+        range = stoi(sRange);
+        car* temp = new car(name2,range);
+        cars.push_back(temp);
+    }
 
     int userInput;
     while(userInput != 4){
@@ -98,10 +110,15 @@ int main(int argc, char* argv[])
 
         if(userInput==1){
             //plan a trip
-            cout<<"Who is the maker of your car? (enter just the number of your choice)"<<endl;
-            /*ask for car maker --> get model choices --> ask for model --> get battery range
-              ask for starting and ending cities
-              call method*/
+            string sChoice;
+            int choice;
+            cout<<"Type the number of your car:"<<endl;
+            for(int i=0;i<cars.size();i++){
+                cout<<i+1<<". "<<cars[i]->model<<endl;
+            }
+            cin.ignore(1,'\n');
+            getline(cin,sChoice);
+            choice = stoi(sChoice);
             string startCity;
             string endCity;
             cout<<"Starting City:";
@@ -110,6 +127,9 @@ int main(int argc, char* argv[])
             cout<<"Ending City:";
             cin.ignore(1,'\n');
             getline(cin,endCity);
+
+            cg.setBatteryRange(cars[choice]->batRange);
+            cg.planTrip(startCity,endCity);
         }else if(userInput==2){
             //print city choices
             for(int i=0;i<cityNames.size();i++){
