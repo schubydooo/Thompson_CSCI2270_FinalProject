@@ -83,6 +83,11 @@ void Graph::displayEdges(){
     }
 }
 
+void Graph::planTrip(string v1, string v2){
+    int distance = findShortestDistance(v1,v2);
+    findShortestPath(v1,v2);
+}
+
 void Graph::findShortestPath(string v1, string v2){
     int i1 = -1;
     int i2 = -1;
