@@ -121,14 +121,12 @@ int main(int argc, char* argv[])
             choice = stoi(sChoice);
             string startCity;
             string endCity;
-            cout<<"Starting City:";
-            cin.ignore(1,'\n');
+            cout<<"Starting City: ";
             getline(cin,startCity);
-            cout<<"Ending City:";
-            cin.ignore(1,'\n');
+            cout<<"Ending City: ";
             getline(cin,endCity);
 
-            cg.setBatteryRange(cars[choice]->batRange);
+            cg.setBatteryRange(cars[choice-1]->batRange);
             cg.planTrip(startCity,endCity);
         }else if(userInput==2){
             //print city choices
