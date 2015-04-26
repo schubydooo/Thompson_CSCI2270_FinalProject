@@ -47,9 +47,9 @@ class Graph
         void displayEdges();
         void planTrip(std::string v1, std::string v2); //called to plan the whole trip
         void findShortestPath(std::string v1, std::string v2); //not sure we need this method
-        int findShortestDistance(std::string v1, std::string v2); //might want this to return the path, not the distance?
+        void findShortestDistance(std::string v1, std::string v2); //might want this to return the path, not the distance?
         bool compareDistances(int pathDist);
-        //some method to determine whether cities along the given path have charging stations
+        int calculateCharge(int dist);
     protected:
     private:
         std::vector<vertex> vertices;
