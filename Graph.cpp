@@ -84,8 +84,12 @@ void Graph::displayEdges(){
 }
 
 void Graph::planTrip(string v1, string v2){
-    int distance = findShortestDistance(v1,v2);
     findShortestPath(v1,v2);
+    findShortestDistance(v1,v2);
+}
+
+int Graph::calculateCharge(int dist){
+    return (dist/batteryRange) + 1;
 }
 
 void Graph::findShortestPath(string v1, string v2){
@@ -141,8 +145,8 @@ void Graph::findShortestPath(string v1, string v2){
                     temp.distance = distance;
                     if(temp.path.back()->name == v2){
                         //print everything
-                        cout << "The path with the least number of cities on it will take you through these " <<distance<< " cities: "
-                        << temp.path[0]->name;
+                        cout << "The path with the least number of cities on it will take you through these "
+                        <<distance<< " cities: "<< temp.path[0]->name;
                         for(int j = 1;j<temp.path.size();j++){
                             cout<<", "<<temp.path[j]->name;
                         }
@@ -157,7 +161,7 @@ void Graph::findShortestPath(string v1, string v2){
     }
 }
 
-int Graph::findShortestDistance(string v1, string v2){
+void Graph::findShortestDistance(string v1, string v2){
     int i1 = -1;
     int i2 = -1;
 
@@ -173,7 +177,7 @@ int Graph::findShortestDistance(string v1, string v2){
 
     if(i1 == -1 || i2 == -1){
         cout<<"One or more cities doesn't exist"<<endl;
-        return 0;
+        return;
     }
 
     vector<vertex*> solved;
@@ -234,13 +238,15 @@ int Graph::findShortestDistance(string v1, string v2){
         finalPath.push_back(minV);
     }
 
-    cout << "Also, the shortest path will take " <<minDistance<< " miles, and pass through: ";
+    int charges = calculateCharge(minDistance);
+
+    cout << "Also, the shortest path will take " <<minDistance<< " miles, " <<charges<<" charges, and pass through these cities: ";
     for(int i = finalPath.size()-1; i > 0; i--){
         cout<<finalPath.at(i)->name << ", ";
     }
     cout<<finalPath.at(0)->name;
     cout << endl;
 
-    return minDistance;
+    //return minDistance;
 }
 
