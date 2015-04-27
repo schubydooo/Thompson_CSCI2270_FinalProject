@@ -392,7 +392,29 @@ Pre-conditions: a vector of vertex pointers that is filled with cities, and 1 or
 Post-conditions: print cities in the given path that have charging stations
 */
 void Graph::printChargingStations(vector<vertex*> v, int whichPath){
-    cout<<"The cities on this route that have Tesla Super Chargers are: ";
+    bool hasSuperchargers = false;
+    if(whichPath == 1){
+        for(int i = 0; i < v.size(); i++){
+            if(v[i]->chargeStation){
+                hasSuperchargers = true;
+                break;
+            }
+        }
+    }
+    else{
+        for(int i = v.size()-1; i>=0; i++){
+            if(v[i]->chargeStation){
+                hasSuperchargers = true;
+                break;
+            }
+        }
+    }
+    if(!hasSuperchargers){
+        cout << "Unfortunately there are no Tesla Superchargers on your route." << endl;
+        return;
+    }
+
+    cout<<"The cities on this route that have Tesla Superchargers are: ";
     bool found = false;
     if(whichPath == 1){
         for(int i=0;i<v.size();i++){
@@ -406,11 +428,15 @@ void Graph::printChargingStations(vector<vertex*> v, int whichPath){
             }
         }
     }else{
-        for(int i=v.size()-1;i>=0;i--){
+        for(int i=v.size()-1;i>0;i--){
             if(v[i]->chargeStation){
                 cout<<v[i]->name<<", ";
             }
         }
+        if(v[0]->chargeStation)
+        {
+            cout << v[0]->name;
+        }
     }
-    cout<<endl;
+    cout<<endl<<endl;
 }
