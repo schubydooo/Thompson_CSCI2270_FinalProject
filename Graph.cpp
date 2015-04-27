@@ -394,7 +394,7 @@ Post-conditions: print cities in the given path that have charging stations
 void Graph::printChargingStations(vector<vertex*> v, int whichPath){
     bool hasSuperchargers = false;
     if(whichPath == 1){
-        for(int i = 0; i < v.size(); i++){
+        for(int i = 0; i < v.size(); i++){      //Iterate through shortest path vector looking for a city with a Supercharger
             if(v[i]->chargeStation){
                 hasSuperchargers = true;
                 break;
@@ -402,7 +402,7 @@ void Graph::printChargingStations(vector<vertex*> v, int whichPath){
         }
     }
     else{
-        for(int i = v.size()-1; i>=0; i++){
+        for(int i = v.size()-1; i>=0; i++){     //Iterate through shortest distance vector looking for a city with a Supercharger
             if(v[i]->chargeStation){
                 hasSuperchargers = true;
                 break;
@@ -417,7 +417,7 @@ void Graph::printChargingStations(vector<vertex*> v, int whichPath){
     cout<<"The cities on this route that have Tesla Superchargers are: ";
     bool found = false;
     if(whichPath == 1){
-        for(int i=0;i<v.size();i++){
+        for(int i=0;i<v.size();i++){        //Iterate through shortest path vector
             if(v[i]->chargeStation){
                 if(!found){
                     found = true;
@@ -428,7 +428,7 @@ void Graph::printChargingStations(vector<vertex*> v, int whichPath){
             }
         }
     }else{
-        for(int i=v.size()-1;i>0;i--){
+        for(int i=v.size()-1;i>0;i--){      //Iterate through shortest distance vector
             if(v[i]->chargeStation){
                 cout<<v[i]->name<<", ";
             }
