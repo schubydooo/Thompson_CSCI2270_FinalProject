@@ -50,6 +50,7 @@ class Graph
         void findShortestDistance(std::string v1, std::string v2); //might want this to return the path, not the distance?
         bool compareDistances(int pathDist);
         int calculateCharge(int dist);
+        void printChargingStations(std::vector<vertex*> v, int whichPath);
     protected:
     private:
         std::vector<vertex> vertices;

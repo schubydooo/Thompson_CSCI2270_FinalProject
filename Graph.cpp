@@ -256,11 +256,12 @@ void Graph::findShortestPath(string v1, string v2){
                     temp.distance = distance;
                     if(temp.path.back()->name == v2){       //If the city just encountered is the ending city, print everything
                         cout << "The path with the least number of cities on it will take you through these "
-                        <<distance<< " cities: "<< temp.path[0]->name;
+                        <<distance+1<< " cities: "<< temp.path[0]->name;
                         for(int j = 1;j<temp.path.size();j++){
                             cout<<", "<<temp.path[j]->name;
                         }
                         cout<<endl;
+                        printChargingStations(temp.path,1);
                         return;
                     }
                     else{
@@ -369,7 +370,47 @@ void Graph::findShortestDistance(string v1, string v2){
     }
     cout<<finalPath.at(0)->name;
     cout << endl;
+    printChargingStations(finalPath,2);
 
     //return minDistance;
 }
 
+/*
+Function Prototype:
+void Graph::printChargingStations(vector<vertex*>,int)
+
+Function Description:
+This function goes through the given path and prints out the cities that have charging stations.
+
+Example:
+Graph cg;
+vector<vertex*> path;
+cg.printChargingStations(path,1);
+
+Pre-conditions: a vector of vertex pointers that is filled with cities, and 1 or 2,
+    depending which path we are trying to print
+Post-conditions: print cities in the given path that have charging stations
+*/
+void Graph::printChargingStations(vector<vertex*> v, int whichPath){
+    cout<<"The cities on this route that have Tesla Super Chargers are: ";
+    bool found = false;
+    if(whichPath == 1){
+        for(int i=0;i<v.size();i++){
+            if(v[i]->chargeStation){
+                if(!found){
+                    found = true;
+                    cout<<v[i]->name;
+                }else{
+                    cout<<", "<<v[i]->name;
+                }
+            }
+        }
+    }else{
+        for(int i=v.size()-1;i>=0;i--){
+            if(v[i]->chargeStation){
+                cout<<v[i]->name<<", ";
+            }
+        }
+    }
+    cout<<endl;
+}
