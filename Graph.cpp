@@ -475,16 +475,19 @@ void Graph::shortestCompleteTraversal(string startCity)
 
     vertex* minV;
     vertex* minU;
+    int trueCounter = 1;
 
-    for(int i = 0; i < vertices.size(); i++)
-    {
-        while(vertices[i].visited == false){
+    //for(int i = 0; i < vertices.size(); i++)
+    //{
+        //while(vertices[i].visited == false){
+        while(trueCounter < vertices.size()){
             minDistance = INT_MAX;
             for(int i = 0; i < solved.size(); i++){     //Loop through nodes already solved and take each one, then look at its adjacencies
                 vertex* ptrU = solved[i];
                 for(int j = 0; j < ptrU->adj.size(); j++){
                     vertex* ptrV = ptrU->adj[j].v;              //Take each adjacent node, if not visited calculate its distance and compare to min
                     if(ptrV->visited == false){
+                        trueCounter++;
                         ptrV->distance = ptrU->distance + ptrU->adj[j].weight;  //Calculate distance using u.distance and edge weight
 
                         if(minDistance > ptrV->distance){
@@ -504,6 +507,8 @@ void Graph::shortestCompleteTraversal(string startCity)
             minV->previous = minU;
             //mark minV as visited
             minV->visited = true;
+            cout << trueCounter << endl;
+            //trueCounter++;
         }
 
         finalPath.push_back(minV);          //Add ending city, then all cities previous to it, to a vector for printing
@@ -511,7 +516,7 @@ void Graph::shortestCompleteTraversal(string startCity)
             minV = minV->previous;
             finalPath.push_back(minV);
         }
-    }
+    //}
 
     int charges = calculateCharge(minDistance);
     cout << "The shortest path to visit all cities will take " <<minDistance<< " miles, and " <<charges<<" charges." <<
@@ -522,10 +527,3 @@ void Graph::shortestCompleteTraversal(string startCity)
     cout<<finalPath.at(0)->name;
     cout << endl;
 }
-
-
-
-
-
-
-
