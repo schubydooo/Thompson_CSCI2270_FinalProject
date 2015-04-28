@@ -20,8 +20,7 @@ int main(int argc, char* argv[])
     vector<string> cityNames;
     vector<car*> cars;
 
-    //reading the file
-    //BUILDING THE GRAPH
+    //reading the file and building the graph
     while(getline(graphFile,fileline)){
         if(fileline == ""){
             break;
@@ -103,9 +102,9 @@ int main(int argc, char* argv[])
     }
 
     int userInput;
-    while(userInput != 4){
-        cout<<"======Main Menu====="<<endl<<"1. Plan a trip"<<endl<<"2. Print city choices"<<endl<<"3. Print graph"
-        <<endl<<"4. Quit"<<endl;
+    while(userInput != 5){
+        cout<<"======Main Menu====="<<endl<<"1. Plan a trip"<<endl<<"2. Print city choices"<<endl<<"3. Visit every city"<<endl<<"4. Print graph"
+        <<endl<<"5. Quit"<<endl;
         cin>>userInput;
 
         if(userInput==1){
@@ -134,16 +133,23 @@ int main(int argc, char* argv[])
                 cout<<cityNames[i]<<endl;
             }
         }else if(userInput==3){
+            string startingCity;
+            cout << "Enter the city you want to start at: " << endl;
+            cin.ignore(1, '\n');
+            getline(cin, startingCity);
+            cg.shortestCompleteTraversal(startingCity);
+        }else if(userInput == 4){
             //print graph
             cg.displayEdges();
-        }else if(userInput == 4){
-
-        }else{
+        }else if(userInput == 5){
+            cout << "Goodbye!" << endl;
+        }
+        else
+        {
             //unless they do not type 1-6
             cout<<"Enter a number between 1 and 6 only."<<endl;
         }
 
     }
-    cout<<"Goodbye!"<<endl;
     return 0;
 }
