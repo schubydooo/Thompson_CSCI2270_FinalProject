@@ -133,9 +133,19 @@ int main(int argc, char* argv[])
                 cout<<cityNames[i]<<endl;
             }
         }else if(userInput==3){
+            int carChoice;
+            string cChoice;
+            cout<<"Type the number of your car:"<<endl;
+            for(int i=0;i<cars.size();i++)
+            {
+                cout<<i+1<<". "<<cars[i]->model<<endl;
+            }
+            cin.ignore(1, '\n');
+            getline(cin, cChoice);
+            carChoice = stoi(cChoice);
+            cg.setBatteryRange(cars[carChoice-1]->batRange);
             string startingCity;
             cout << "Enter the city you want to start at: " << endl;
-            cin.ignore(1, '\n');
             getline(cin, startingCity);
             cg.shortestCompleteTraversal(startingCity);
         }else if(userInput == 4){
