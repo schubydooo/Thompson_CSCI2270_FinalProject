@@ -380,7 +380,8 @@ Function Prototype:
 void Graph::printChargingStations(vector<vertex*>,int)
 
 Function Description:
-This function goes through the given path and prints out the cities that have charging stations.
+This function first verifies that a given path, either shortest path or shortest distance, first has Superchargers
+on it, then goes through the given path and prints out the cities that have charging stations.
 
 Example:
 Graph cg;
@@ -392,7 +393,7 @@ Pre-conditions: a vector of vertex pointers that is filled with cities, and 1 or
 Post-conditions: print cities in the given path that have charging stations
 */
 void Graph::printChargingStations(vector<vertex*> v, int whichPath){
-    bool hasSuperchargers = false;
+    bool hasSuperchargers = false;              //Checker for if print below is necessary
     if(whichPath == 1){
         for(int i = 0; i < v.size(); i++){      //Iterate through shortest path vector looking for a city with a Supercharger
             if(v[i]->chargeStation){
@@ -410,7 +411,7 @@ void Graph::printChargingStations(vector<vertex*> v, int whichPath){
         }
     }
     if(!hasSuperchargers){
-        cout << "Unfortunately there are no Tesla Superchargers on your route." << endl;
+        cout << "Unfortunately there are no Tesla Superchargers on this route." << endl;
         return;
     }
 
