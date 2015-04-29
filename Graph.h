@@ -45,11 +45,12 @@ class Graph
         void setCharge(std::string name, bool charge);
         void setBatteryRange(int range);
         void displayEdges();
-        void shortestCompleteTraversal(std::string city);    //Calculate shortest path to hit every node in graph
+        //void shortestCompleteTraversal(std::string city);    //Currently not functional, commented out until fixed
         void planTrip(std::string v1, std::string v2);       //called to plan the whole trip
         void findShortestPath(std::string v1, std::string v2);      //Find shortest number of nodes between start and end
         void findShortestDistance(std::string v1, std::string v2); //Find the shortest distance in miles between start and end
-        bool compareDistances(int pathDist);
+        int returnShortestDistance(std::string v1, std::string v2);
+        void citiesWithinReach(std::string v1, int time);
         int calculateCharge(int dist);
         void printChargingStations(std::vector<vertex*> v, int whichPath);
     protected:
