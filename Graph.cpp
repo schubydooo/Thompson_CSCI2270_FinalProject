@@ -443,6 +443,63 @@ void Graph::printChargingStations(vector<vertex*> v, int whichPath){
 }
 
 
+/*
+Function Prototype:
+void Graph::citiesWithinReach(string,int);
+
+Function Description:
+This function takes in the amount of time the user has to drive, then uses Djikstra's algorithm and the
+returnShortestPath function to determine all cities that can be reached in that amount of time.
+
+Example:
+Graph cg;
+vector<vertex> possibleCities;
+cg.citiesWithinReach("Boulder", 10);
+
+Pre-conditions: The starting city must be a valid node in an already built graph,
+    and hours to travel must be an int >0
+Post-conditions: Print cities that can be reached
+*/
+void Graph::citiesWithinReach(string startCity, int hoursToTravel)
+{
+    vector <vertex> possibleCities;     //Will hold all cities that can be reached, to print later
+    int time = hoursToTravel;
+    int indexLocation;
+    int distancePossible = time * 55;        //Average of 60MPH for the entire time, counting stops and >65MPH roads
+
+    for(int i = 0; i < vertices.size(); i++)
+    {
+        int newDistance = returnShortestDistance(startCity, vertices[i].name);  //returnShortestDist is still Djikstra's algorithm, but returns rather than void
+        if(newDistance <= distancePossible)
+        {
+            possibleCities.push_back(vertices[i]);      //This city can be reached in the amount of time available
+        }
+    }
+
+    if(!possibleCities.empty())
+    {
+        cout << "The cities that you can reach in " << hoursToTravel << " hours are: ";
+        for(int i = 0; i < possibleCities.size()-1; i++)
+        {
+            if(possibleCities[i].name == startCity)
+            {
+            }
+            else
+            {
+                cout << possibleCities[i].name << ", ";
+            }
+        }
+        int lastPrint = possibleCities.size()-1;
+        cout << possibleCities[lastPrint].name << endl;
+    }
+    else
+    {
+        cout << "Unfortunately there are no cities that you can reach in the amount of time you have." << endl;
+    }
+}
+
+//Currently not functional, commented out until fixed
+/*
 void Graph::shortestCompleteTraversal(string startCity)
 {
     int sourceIndex = -1;
@@ -475,19 +532,16 @@ void Graph::shortestCompleteTraversal(string startCity)
 
     vertex* minV;
     vertex* minU;
-    int trueCounter = 1;
 
-    //for(int i = 0; i < vertices.size(); i++)
-    //{
-        //while(vertices[i].visited == false){
-        while(trueCounter < vertices.size()){
+    for(int i = 0; i < vertices.size(); i++)
+    {
+        while(vertices[i].visited == false){
             minDistance = INT_MAX;
             for(int i = 0; i < solved.size(); i++){     //Loop through nodes already solved and take each one, then look at its adjacencies
                 vertex* ptrU = solved[i];
                 for(int j = 0; j < ptrU->adj.size(); j++){
                     vertex* ptrV = ptrU->adj[j].v;              //Take each adjacent node, if not visited calculate its distance and compare to min
                     if(ptrV->visited == false){
-                        trueCounter++;
                         ptrV->distance = ptrU->distance + ptrU->adj[j].weight;  //Calculate distance using u.distance and edge weight
 
                         if(minDistance > ptrV->distance){
@@ -507,16 +561,14 @@ void Graph::shortestCompleteTraversal(string startCity)
             minV->previous = minU;
             //mark minV as visited
             minV->visited = true;
-            cout << trueCounter << endl;
-            //trueCounter++;
         }
-
+    }
         finalPath.push_back(minV);          //Add ending city, then all cities previous to it, to a vector for printing
         while(minV->previous != NULL){
             minV = minV->previous;
             finalPath.push_back(minV);
         }
-    //}
+
 
     int charges = calculateCharge(minDistance);
     cout << "The shortest path to visit all cities will take " <<minDistance<< " miles, and " <<charges<<" charges." <<
@@ -526,4 +578,93 @@ void Graph::shortestCompleteTraversal(string startCity)
     }
     cout<<finalPath.at(0)->name;
     cout << endl;
+}
+*/
+
+
+int Graph::returnShortestDistance(string v1, string v2){
+    int i1 = -1;
+    int i2 = -1;
+
+    for(int i=0;i<vertices.size();i++){     //Find indexes of both cities in vector of cities
+        if(vertices[i].name == v1){
+            i1 = i;
+        }
+        if(vertices[i].name == v2){
+            i2 = i;
+        }
+    }
+
+    if(i1 == -1 || i2 == -1){
+        cout<<"One or more cities doesn't exist"<<endl;
+        return -1;
+    }
+
+    vector<vertex*> solved;
+    vector<vertex*> finalPath;
+    vertex* destPtr;
+    int minDistance = INT_MAX;
+
+    for(int i = 0; i < vertices.size(); i++){       //Setting all cities as not visited ensures they won't be missed during algorithm execution
+        vertices[i].visited = false;
+        vertices[i].previous = NULL;                //Previous should be NULL until start moving through graph and solving nodes
+        vertices[i].distance = INT_MAX;             //Guaranteed to be larger than whatever valid distance is calculated during algorithm
+
+        if(vertices[i].name == v1){
+            vertices[i].visited = true;
+            vertices[i].distance = 0;
+            solved.push_back(&vertices[i]);     //Find starting city, push it into vector containing "solved" nodes
+        }                                           //where solved means distance to it has been found
+
+        if(vertices[i].name == v2){
+            destPtr = &vertices[i];
+        }
+    }
+    vertex* minV;
+    vertex* minU;
+    while(destPtr->visited == false){
+        minDistance = INT_MAX;
+        for(int i = 0; i < solved.size(); i++){     //Loop through nodes already solved and take each one, then look at its adjacencies
+            vertex* ptrU = solved[i];
+            for(int j = 0; j < ptrU->adj.size(); j++){
+                vertex* ptrV = ptrU->adj[j].v;              //Take each adjacent node, if not visited calculate its distance and compare to min
+                if(ptrV->visited == false){
+                    ptrV->distance = ptrU->distance + ptrU->adj[j].weight;  //Calculate distance using u.distance and edge weight
+
+                    if(minDistance > ptrV->distance){
+                        minDistance = ptrV->distance;
+                        minV = ptrV;                        //These temps are necessary because we don't want to change ptrU or ptrV while iterating
+                        minU = ptrU;
+
+                    }
+                }
+            }
+        }
+        //add vertex to solved
+        solved.push_back(minV);
+        //update minV's distance
+        minV->distance = minDistance;
+        //update minV's previous to be minU
+        minV->previous = minU;
+        //mark minV as visited
+        minV->visited = true;
+    }
+
+    finalPath.push_back(minV);          //Add ending city, then all cities previous to it, to a vector for printing
+    while(minV->previous != NULL){
+        minV = minV->previous;
+        finalPath.push_back(minV);
+    }
+/*
+    int charges = calculateCharge(minDistance);
+
+    cout << "Also, the shortest path will take " <<minDistance<< " miles, " <<charges<<" charges, and pass through these cities: ";
+    for(int i = finalPath.size()-1; i > 0; i--){
+        cout<<finalPath.at(i)->name << ", ";
+    }
+    cout<<finalPath.at(0)->name;
+    cout << endl;
+    printChargingStations(finalPath,2);
+*/
+    return minDistance;
 }
