@@ -103,7 +103,7 @@ int main(int argc, char* argv[])
 
     int userInput;
     while(userInput != 5){
-        cout<<"======Main Menu====="<<endl<<"1. Plan a trip"<<endl<<"2. Print city choices"<<endl<<"3. Visit every city"<<endl<<"4. Print graph"
+        cout<<"======Main Menu====="<<endl<<"1. Plan a trip"<<endl<<"2. Print city choices"<<endl<<"3. Visit cities on a time crunch"<<endl<<"4. Print graph"
         <<endl<<"5. Quit"<<endl;
         cin>>userInput;
 
@@ -132,7 +132,9 @@ int main(int argc, char* argv[])
             for(int i=0;i<cityNames.size();i++){
                 cout<<cityNames[i]<<endl;
             }
-        }else if(userInput==3){
+        }
+        /*  Currently not functional, commented out until fixed
+        else if(userInput==3){
             int carChoice;
             string cChoice;
             cout<<"Type the number of your car:"<<endl;
@@ -148,7 +150,22 @@ int main(int argc, char* argv[])
             cout << "Enter the city you want to start at: " << endl;
             getline(cin, startingCity);
             cg.shortestCompleteTraversal(startingCity);
-        }else if(userInput == 4){
+        }
+        */
+        else if(userInput == 3)
+        {
+            string startCity;
+            string time;
+            cout << "Okay, so you don't have too long to drive, got it!" << endl;
+            cout << "Please enter how many hours you have to travel: " << endl;
+            cin.ignore(1, '/n');
+            getline(cin,time);
+            int timeInt = stoi(time);
+            cout << "Where would you like to start your trip: " << endl;
+            getline(cin, startCity);
+            cg.citiesWithinReach(startCity, timeInt);
+        }
+        else if(userInput == 4){
             //print graph
             cg.displayEdges();
         }else if(userInput == 5){
