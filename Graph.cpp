@@ -191,7 +191,7 @@ int Graph::calculateCharge(int dist){
 
 /*
 Function Prototype:
-void Graph::findShortestDistance(string, string);
+void Graph::findShortestPath(string, string);
 
 Function Description:
 Determines the smallest number of nodes in the graph that can be encountered while traversing
@@ -368,8 +368,10 @@ void Graph::findShortestDistance(string v1, string v2){
     for(int i = finalPath.size()-1; i > 0; i--){
         cout<<finalPath.at(i)->name << ", ";
     }
+    //cout<<"111"<<endl;
     cout<<finalPath.at(0)->name;
     cout << endl;
+    //cout<<"222"<<endl;
     printChargingStations(finalPath,2);
 
     //return minDistance;
@@ -394,6 +396,7 @@ Post-conditions: print cities in the given path that have charging stations
 */
 void Graph::printChargingStations(vector<vertex*> v, int whichPath){
     bool hasSuperchargers = false;              //Checker for if print below is necessary
+    //cout<<"1"<<endl;
     if(whichPath == 1){
         for(int i = 0; i < v.size(); i++){      //Iterate through shortest path vector looking for a city with a Supercharger
             if(v[i]->chargeStation){
@@ -404,17 +407,20 @@ void Graph::printChargingStations(vector<vertex*> v, int whichPath){
     }
     else{
         for(int i = v.size()-1; i>=0; i++){     //Iterate through shortest distance vector looking for a city with a Supercharger
+            cout<<"4"<<endl;
             if(v[i]->chargeStation){
                 hasSuperchargers = true;
                 break;
             }
         }
     }
+    //cout<<"2"<<endl;
     if(!hasSuperchargers){
         cout << "Unfortunately there are no Tesla Superchargers on this route." << endl;
         return;
     }
 
+    //cout<<"3"<<endl;
     cout<<"The cities on this route that have Tesla Superchargers are: ";
     bool found = false;
     if(whichPath == 1){

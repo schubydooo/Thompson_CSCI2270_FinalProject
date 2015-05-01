@@ -158,7 +158,7 @@ int main(int argc, char* argv[])
             string time;
             cout << "Okay, so you don't have too long to drive, got it!" << endl;
             cout << "Please enter how many hours you have to travel: " << endl;
-            cin.ignore(1, '/n');
+            cin.ignore(1, '\n');
             getline(cin,time);
             int timeInt = stoi(time);
             cout << "Where would you like to start your trip: " << endl;
