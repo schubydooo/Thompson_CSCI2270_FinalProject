@@ -396,7 +396,6 @@ Post-conditions: print cities in the given path that have charging stations
 */
 void Graph::printChargingStations(vector<vertex*> v, int whichPath){
     bool hasSuperchargers = false;              //Checker for if print below is necessary
-    //cout<<"1"<<endl;
     if(whichPath == 1){
         for(int i = 0; i < v.size(); i++){      //Iterate through shortest path vector looking for a city with a Supercharger
             if(v[i]->chargeStation){
@@ -406,21 +405,18 @@ void Graph::printChargingStations(vector<vertex*> v, int whichPath){
         }
     }
     else{
-        for(int i = v.size()-1; i>=0; i++){     //Iterate through shortest distance vector looking for a city with a Supercharger
-            //cout<<"4"<<endl;
+        for(int i = v.size()-1; i>=0; i--){     //Iterate through shortest distance vector looking for a city with a Supercharger
             if(v[i]->chargeStation){
                 hasSuperchargers = true;
                 break;
             }
         }
     }
-    //cout<<"2"<<endl;
     if(!hasSuperchargers){
         cout << "Unfortunately there are no Tesla Superchargers on this route." << endl;
         return;
     }
 
-    //cout<<"3"<<endl;
     cout<<"The cities on this route that have Tesla Superchargers are: ";
     bool found = false;
     if(whichPath == 1){
@@ -435,17 +431,26 @@ void Graph::printChargingStations(vector<vertex*> v, int whichPath){
             }
         }
     }else{
+        bool found1 = false;
         for(int i=v.size()-1;i>0;i--){      //Iterate through shortest distance vector
             if(v[i]->chargeStation){
-                cout<<v[i]->name<<", ";
+                if(!found1)
+                {
+                    found1 = true;
+                    cout << v[i]->name;
+                }
+                else
+                {
+                    cout << ", " << v[i]->name;
+                }
             }
         }
         if(v[0]->chargeStation)
         {
-            cout << v[0]->name;
+            cout << ", " << v[0]->name;
         }
     }
-    cout<<endl<<endl;
+    cout << endl << endl;
 }
 
 
@@ -496,11 +501,11 @@ void Graph::citiesWithinReach(string startCity, int hoursToTravel)
             }
         }
         int lastPrint = possibleCities.size()-1;
-        cout << possibleCities[lastPrint].name << endl;
+        cout << possibleCities[lastPrint].name << endl << endl;
     }
     else
     {
-        cout << "Unfortunately there are no cities that you can reach in the amount of time you have." << endl;
+        cout << "Unfortunately there are no cities that you can reach in the amount of time you have." << endl << endl;
     }
 }
 
