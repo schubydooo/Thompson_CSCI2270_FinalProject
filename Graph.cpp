@@ -407,7 +407,7 @@ void Graph::printChargingStations(vector<vertex*> v, int whichPath){
     }
     else{
         for(int i = v.size()-1; i>=0; i++){     //Iterate through shortest distance vector looking for a city with a Supercharger
-            cout<<"4"<<endl;
+            //cout<<"4"<<endl;
             if(v[i]->chargeStation){
                 hasSuperchargers = true;
                 break;
