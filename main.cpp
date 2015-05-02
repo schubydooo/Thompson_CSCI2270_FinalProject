@@ -118,15 +118,20 @@ int main(int argc, char* argv[])
             cin.ignore(1,'\n');
             getline(cin,sChoice);
             choice = stoi(sChoice);
-            string startCity;
-            string endCity;
-            cout<<"Starting City: ";
-            getline(cin,startCity);
-            cout<<"Ending City: ";
-            getline(cin,endCity);
-
-            cg.setBatteryRange(cars[choice-1]->batRange);
-            cg.planTrip(startCity,endCity);
+            if((choice) > 0 && (choice) < 11)
+			{
+				string startCity;
+				string endCity;
+				cout<<"Starting City: ";
+				getline(cin,startCity);
+				cout<<"Ending City: ";
+				getline(cin,endCity);
+			
+				cg.setBatteryRange(cars[choice-1]->batRange);
+				cg.planTrip(startCity,endCity);
+			}
+			else
+				cout<<"Sorry, the number you typed is invalid."<<endl;
         }else if(userInput==2){
             //print city choices
             for(int i=0;i<cityNames.size();i++){
