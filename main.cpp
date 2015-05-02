@@ -118,45 +118,34 @@ int main(int argc, char* argv[])
             cin.ignore(1,'\n');
             getline(cin,sChoice);
             choice = stoi(sChoice);
+            while(choice < 1 || choice > 10)
+            {
+                cout << "Please enter a number between 1 and 10" << endl;
+                getline(cin,sChoice);
+                choice = stoi(sChoice);
+            }
+            string startCity;
+            string endCity;
+            cout<<"Starting City: ";
+            getline(cin,startCity);
+            cout<<"Ending City: ";
+            getline(cin,endCity);
+            cg.setBatteryRange(cars[choice-1]->batRange);
+            cg.planTrip(startCity,endCity);
+            /*
             if((choice) > 0 && (choice) < 11)
 			{
-				string startCity;
-				string endCity;
-				cout<<"Starting City: ";
-				getline(cin,startCity);
-				cout<<"Ending City: ";
-				getline(cin,endCity);
-			
-				cg.setBatteryRange(cars[choice-1]->batRange);
-				cg.planTrip(startCity,endCity);
+
 			}
 			else
 				cout<<"Sorry, the number you typed is invalid."<<endl;
+            */
         }else if(userInput==2){
             //print city choices
             for(int i=0;i<cityNames.size();i++){
                 cout<<cityNames[i]<<endl;
             }
         }
-        /*  Currently not functional, commented out until fixed
-        else if(userInput==3){
-            int carChoice;
-            string cChoice;
-            cout<<"Type the number of your car:"<<endl;
-            for(int i=0;i<cars.size();i++)
-            {
-                cout<<i+1<<". "<<cars[i]->model<<endl;
-            }
-            cin.ignore(1, '\n');
-            getline(cin, cChoice);
-            carChoice = stoi(cChoice);
-            cg.setBatteryRange(cars[carChoice-1]->batRange);
-            string startingCity;
-            cout << "Enter the city you want to start at: " << endl;
-            getline(cin, startingCity);
-            cg.shortestCompleteTraversal(startingCity);
-        }
-        */
         else if(userInput == 3)
         {
             string startCity;
