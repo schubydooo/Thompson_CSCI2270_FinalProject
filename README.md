@@ -16,7 +16,7 @@ Type the number of your choosing and hit Enter. For choices 2 and 3, information
 
 Dependencies:
 
-This program depends on three text files, which are provided in this GitHub repository. The program extracts the information from these text files without being prompted; the files just need to be in the same folder as Graph.cpp, Graph.h, and main.cpp. The three files are SuperChargerCities.txt, ElectricVehicleRanges.txt, and FinalProjectCities.txt.
+This program depends on three text files, which are provided in this GitHub repository. The program extracts the information from these text files without being prompted; the files just need to be in the same folder as Graph.cpp, Graph.h, and main.cpp. The three files are SuperChargerCities.txt, ElectricVehicleRanges.txt, and FinalProjectCities.txt. Also note that c++ 11 is necessary for all functionality.
 
 System Requirements:
 
