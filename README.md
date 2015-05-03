@@ -26,10 +26,10 @@ Group Members:
 
 Emma Montross, Logan Thompson
 
-Contributers:
+Contributers: 
 
-N/A at the moment
+christyroney
 
 Open Issues/Bugs:
 
-Currently, we have found no bugs in this program. If you wish to enhance it, you could use the information in the SuperChargerCities.txt (city names, with a 1 or 0 next to them - 1 means the city has a Tesla Super Charger, 0 means it does not) to inform the user of the cities along his/her recommended path that have Super Chargers. You could also add an element that calculates whether or not the model can make it the whole way based on where the Super Charges are.
+Currently there are no fatal bugs in the program. A desired additional functionality would be improved exception handling so that all exceptions are handled in while loops or with try-throw-catch logic to allow for when a user puts in a bad input repeatedly.
