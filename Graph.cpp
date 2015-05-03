@@ -473,39 +473,54 @@ Post-conditions: Print cities that can be reached
 */
 void Graph::citiesWithinReach(string startCity, int hoursToTravel)
 {
-    vector <vertex> possibleCities;     //Will hold all cities that can be reached, to print later
-    int time = hoursToTravel;
-    int indexLocation;
-    int distancePossible = time * 55;        //Average of 60MPH for the entire time, counting stops and >65MPH roads
-
+    bool foundCity = false;
     for(int i = 0; i < vertices.size(); i++)
     {
-        int newDistance = returnShortestDistance(startCity, vertices[i].name);  //returnShortestDist is still Djikstra's algorithm, but returns rather than void
-        if(newDistance <= distancePossible)
+        if(vertices[i].name == startCity)
         {
-            possibleCities.push_back(vertices[i]);      //This city can be reached in the amount of time available
+            foundCity = true;
         }
     }
-
-    if(!possibleCities.empty())
+    if(foundCity)
     {
-        cout << "The cities that you can reach in " << hoursToTravel << " hours are: ";
-        for(int i = 0; i < possibleCities.size()-1; i++)
+        vector <vertex> possibleCities;     //Will hold all cities that can be reached, to print later
+        int time = hoursToTravel;
+        int indexLocation;
+        int distancePossible = time * 55;        //Average of 60MPH for the entire time, counting stops and >65MPH roads
+
+        for(int i = 0; i < vertices.size(); i++)
         {
-            if(possibleCities[i].name == startCity)
+            int newDistance = returnShortestDistance(startCity, vertices[i].name);  //returnShortestDist is still Djikstra's algorithm, but returns rather than void
+            if(newDistance <= distancePossible)
             {
-            }
-            else
-            {
-                cout << possibleCities[i].name << ", ";
+                possibleCities.push_back(vertices[i]);      //This city can be reached in the amount of time available
             }
         }
-        int lastPrint = possibleCities.size()-1;
-        cout << possibleCities[lastPrint].name << endl << endl;
+
+        if(!possibleCities.empty())
+        {
+            cout << "The cities that you can reach in " << hoursToTravel << " hours are: ";
+            for(int i = 0; i < possibleCities.size()-1; i++)
+            {
+                if(possibleCities[i].name == startCity)
+                {
+                }
+                else
+                {
+                    cout << possibleCities[i].name << ", ";
+                }
+            }
+            int lastPrint = possibleCities.size()-1;
+            cout << possibleCities[lastPrint].name << endl << endl;
+        }
+        else
+        {
+            cout << "Unfortunately there are no cities that you can reach in the amount of time you have." << endl << endl;
+        }
     }
     else
     {
-        cout << "Unfortunately there are no cities that you can reach in the amount of time you have." << endl << endl;
+        cout << "That city is not an option, please enter again." << endl;
     }
 }
 
